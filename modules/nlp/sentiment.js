@@ -2,8 +2,8 @@ const Sentiment = require('sentiment')
 const Adapter = require('./adapter')
 const config = require('config')
 
-class SentimentJS extends Adapter{
-  constructor (title, id) {
+class SentimentJS extends Adapter {
+  constructor(title, id) {
     super(title, id)
     this.analyzer = new Sentiment()
   }
@@ -19,7 +19,7 @@ class SentimentJS extends Adapter{
       id: this.id,
       title: this.title,
       result: resp.comparative / 5,
-      meta: resp
+      meta: resp,
     })
   }
 }

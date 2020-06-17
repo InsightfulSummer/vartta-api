@@ -15,20 +15,17 @@ adapters.push(new RFAdapter('Random Forests', 'RF'))
 adapters.push(new MLPAdapter('Multilayer Perceptron', 'MLP'))
 
 async function analyzeTweet(tweet) {
-    let res = []
-    for (let adapter of adapters) {
-        res.push(await adapter.getResponse(tweet))
-    }
-    const customLabel = await predictCustomLabels(res)
-    if (customLabel.valid)
-      res.push(customLabel)
-    return res
+  let res = []
+  for (let adapter of adapters) {
+    res.push(await adapter.getResponse(tweet))
+  }
+  const customLabel = await predictCustomLabels(res)
+  if (customLabel.valid) res.push(customLabel)
+  return res
 }
-
 
 module.exports = {
-    analyzeTweet: async function (tweet) {
-        return await analyzeTweet(tweet)
-    }
+  analyzeTweet: async function (tweet) {
+    return await analyzeTweet(tweet)
+  },
 }
-
