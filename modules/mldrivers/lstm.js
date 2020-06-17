@@ -1,7 +1,9 @@
 const axios = require('axios')
 const Driver = require('./driver')
-const url1 = 'http://localhost:33507/lstmtweet'
-const url2 = 'http://localhost:33507/lstmuser'
+const logger = require('../../plugins/log')
+const config = require('config')
+const url1 = config.flask.dlapp_uri + 'lstmtweet'
+const url2 = config.flask.dlapp_uri + 'lstmuser'
 
 
 class LSTMAdapter extends Driver{
@@ -11,7 +13,7 @@ class LSTMAdapter extends Driver{
      }).then(function (response1){
        return response1.data
      }).catch(err => {
-      console.log('error:', err);
+      logger.error('error:', err);
     });
 
     let res2 = await axios.post(url2, {
@@ -19,7 +21,7 @@ class LSTMAdapter extends Driver{
      }).then(function (response2){
        return response2.data
      }).catch(err => {
-      console.log('error:', err);
+      logger.error('error:', err);
     });
 
 

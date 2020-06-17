@@ -1,7 +1,9 @@
 const axios = require('axios')
 const Driver = require('./driver')
-const url1 = 'http://localhost:33508/svmtweet'
- const url2 = 'http://localhost:33508/svmuser'
+const logger = require('../../plugins/log')
+const config = require('config')
+const url1 = config.flask.mlapp_uri + 'svmtweet'
+const url2 = config.flask.mlapp_uri + 'svmuser'
 
 
 class   SVMAdapter extends Driver{
@@ -13,7 +15,7 @@ class   SVMAdapter extends Driver{
      }).then(function (response1){
        return response1.data
      }).catch(err => {
-      console.log('error:', err);
+      logger.error('error:', err);
     });
 
     let res2 = await axios.post(url2, {
@@ -21,7 +23,7 @@ class   SVMAdapter extends Driver{
      }).then(function (response2){
        return response2.data
      }).catch(err => {
-      console.log('error:', err);
+      logger.error('error:', err);
     });
 
     return {

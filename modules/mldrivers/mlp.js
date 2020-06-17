@@ -1,7 +1,9 @@
 const axios = require('axios')
 const Driver = require('./driver')
-const url1 = 'http://localhost:33508/mlptweet'
- const url2 = 'http://localhost:33508/mlpuser'
+const logger = require('../../plugins/log')
+const config = require('config')
+const url1 = config.flask.mlapp_uri + 'mlptweet'
+const url2 = config.flask.mlapp_uri + 'mlpuser'
 
 
 class   MLPAdapter extends Driver{
@@ -12,7 +14,7 @@ class   MLPAdapter extends Driver{
      }).then(function (response1){
        return response1.data
      }).catch(err => {
-      console.log('error:', err);
+      logger.error('error:', err);
     });
 
     let res2 = await axios.post(url2, {
@@ -20,7 +22,7 @@ class   MLPAdapter extends Driver{
      }).then(function (response2){
        return response2.data
      }).catch(err => {
-      console.log('error:', err);
+      logger.error('error:', err);
     });
 
     return {

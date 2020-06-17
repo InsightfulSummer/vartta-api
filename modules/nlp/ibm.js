@@ -1,4 +1,5 @@
 const Adapter = require('./adapter')
+const logger = require('../../plugins/log')
 const config = require('config')
 const NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-understanding/v1');
 const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
@@ -34,9 +35,7 @@ let analyzeParams = {
             entities: true
         },
         sentiment: {
-            targets: [
-                'health'
-            ]
+          document: true
         }
     },
 };
@@ -49,10 +48,21 @@ class IBMAdapter extends Adapter{
                 return analysisResults
             })
             .catch(err => {
-                console.log('error:', err);
+                logger.error('error:', err);
                 return {}
             });
     }
+
+  // Override
+  async getResponse(text) {
+    let resp = await this.analyze(text)
+    return Promise.resolve({
+      id: this.id,
+      title: this.title,
+      result: resp.sentiment.document.score,
+      meta: resp
+    })
+  }
 }
 
 module.exports = IBMAdapter
