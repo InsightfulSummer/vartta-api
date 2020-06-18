@@ -3,4 +3,6 @@ services:
   vartta-api:
     build: .
     network_mode: 'bridge'
+    ports:
+      - 5003:2000
     restart: always
