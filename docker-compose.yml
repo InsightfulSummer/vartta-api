@@ -2,7 +2,13 @@ version: "3"
 services:
   vartta-api:
     build: .
-    network_mode: 'bridge'
     ports:
       - 5003:2000
     restart: always
+    networks:
+      - default
+
+networks:
+  default:
+    external:
+      name: 'elasticsearch_elastic'
