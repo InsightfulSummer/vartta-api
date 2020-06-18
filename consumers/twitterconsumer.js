@@ -187,12 +187,16 @@ class TwitterConsumer extends BaseConsumer {
 
     // Save the tweet --- pass it to Bakjs for saving
     await axios
-      .post('http://sts2944.cloud.csd.uwo.ca:5001/vartta/_doc/', tweet)
+      .post(config.get('elasticsearch').save, tweet)
       .then((res) => {
         console.log('tweet posted; res: ' + res.status)
+        logger.info(
+          'tweet posted; res: ' + res.status + '; ' + tweet.original_text
+        )
       })
       .catch((e) => {
         console.log(e)
+        logger.error('error:', e)
       })
     // axios
     //   .post(config.get('bakjs').saveTweet, { tweet: tweet })
