@@ -4,7 +4,7 @@ const axios = require('axios')
 const nlp = require('../modules/nlp')
 const ml = require('../modules/mldrivers')
 const config = require('config')
-// const channels = config.get('channels')
+const channelsFromConfig = config.get('channels')
 const logger = require('../plugins/log')
 
 // let main = require('../main')
@@ -37,10 +37,8 @@ class TwitterConsumer extends BaseConsumer {
 
   consume(chans) {
     console.log('starting to consume...')
-    // if (!chans)
-    //   this.channels = this.channelsToObject(channels)
-    // else
-    this.channels = this.channelsToObject(chans)
+    if (!chans) this.channels = this.channelsToObject(channelsFromConfig)
+    else this.channels = this.channelsToObject(chans)
     this.stream = T.streamChannels({
       track: this.channels,
       language: 'en',
@@ -172,7 +170,7 @@ class TwitterConsumer extends BaseConsumer {
     const that = this
     // Discard the tweet if it does not include any keywords
     if (Object.keys(tweet.$channels).length === 0) return
-    console.log(tweet.text)
+    // console.log(tweet.text)
 
     // Pre-process the tweet
     tweet['topics'] = Object.assign({}, tweet.$channels)
@@ -182,21 +180,29 @@ class TwitterConsumer extends BaseConsumer {
     tweet.text = preprocess(tweet.text)[0]
 
     // Analyze the tweet (NLP PART)
-    tweet['analysis'] = await nlp.analyzeText(tweet.text)
+    // tweet['analysis'] = await nlp.analyzeText(tweet.text)
 
     // Predict the labels
-    tweet['labels'] = await ml.analyzeTweet(tweet)
+    // tweet['labels'] = await ml.analyzeTweet(tweet)
 
     // Save the tweet --- pass it to Bakjs for saving
-    axios
-      .post(config.get('bakjs').saveTweet, { tweet: tweet })
-      .then((response) => {
-        that.submitData(tweet)
+    await axios
+      .post('http://sts2944.cloud.csd.uwo.ca:5001/vartta/_doc/', tweet)
+      .then((res) => {
+        console.log('tweet posted; res: ' + res.status)
       })
-      .catch((err) => {
-        logger.error('error:', err)
-        return false
+      .catch((e) => {
+        console.log(e)
       })
+    // axios
+    //   .post(config.get('bakjs').saveTweet, { tweet: tweet })
+    //   .then((response) => {
+    //     that.submitData(tweet)
+    //   })
+    //   .catch((err) => {
+    //     logger.error('error:', err)
+    //     return false
+    //   })
   }
 
   async submitData(tweet) {
