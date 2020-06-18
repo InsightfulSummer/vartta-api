@@ -1,13 +1,9 @@
-FROM node:latest
-
+FROM node:alpine3.12
 # MAINTAINER: Amir Haghighati <haghighati.ami@gmail.com>
-
-ENV NODE_ENV=production
-ENV PORT=3000
 ENV HOST=0.0.0.0
+EXPOSE 2000
 
 WORKDIR /app
-EXPOSE 3000
 COPY package.json yarn.lock /app/
 RUN yarn install --frozen-lockfile --non-interactive
 

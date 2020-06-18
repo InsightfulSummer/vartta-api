@@ -1,8 +1,8 @@
 version: "3"
 services:
-  tweetycs_api:
-    image: banian/node
-    volumes:
-      - "./:/usr/src/app"
+  vartta-api:
+    build: .
     network_mode: 'bridge'
+    ports:
+      - 5003:2000
     restart: always

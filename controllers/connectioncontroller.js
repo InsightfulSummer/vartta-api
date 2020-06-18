@@ -1,72 +1,86 @@
+/* eslint-disable no-unused-vars */
 const EventController = require('./controller')
 /**
  * Connection Controller
  */
-class Connectioncontroller extends EventController{
+class Connectioncontroller extends EventController {
+  /**
+   * Routes that the controller responds to
+   */
+  routes() {
+    // At the beginning of the connection
+    this.socket.emit('server_response', { data: 'Connected', count: 0 })
 
-    /**
-     * Routes that the controller responds to
-     */
-    routes () {
-        // At the beginning of the connection
-        this.socket.emit('server_response', {data: 'Connected', 'count': 0})
+    // Test connection
+    this.socket.on('connect', (data) => {
+      this.testConnect(data)
+    })
 
-        // Test connection
-        this.socket.on('connect', data => { this.testConnect(data) } )
+    // Ping response
+    this.socket.on('client_ping', (data) => {
+      this.pingPong(data)
+    })
 
-        // Ping response
-        this.socket.on('client_ping', data => { this.pingPong(data) })
+    // Disconnect
+    this.socket.on('disconnect_request', (data) => {
+      this.disconnectRequest(data)
+    })
 
-        // Disconnect
-        this.socket.on('disconnect_request', data => { this.disconnectRequest(data) })
+    // Test disconnection
+    this.socket.on('disconnect', (data) => {
+      this.testDisconnect(data)
+    })
 
-        // Test disconnection
-        this.socket.on('disconnect', data => { this.testDisconnect(data) })
+    // Joining a room
+    this.socket.on('join', (data) => {
+      this.join(data)
+    })
 
-        // Joining a room
-        this.socket.on('join', data => { this.join(data) })
+    // Leaving a room
+    this.socket.on('leave', (data) => {
+      this.leave(data)
+    })
+  }
 
-        // Leaving a room
-        this.socket.on('leave', data => { this.leave(data) })
-    }
+  testConnect(data) {
+    console.log('Client connected!!')
+    this.socket.emit('server_response', { data: 'Connected', count: 0 })
+  }
 
+  pingPong(data) {
+    this.socket.emit('server_pong')
+  }
 
-    testConnect(data) {
-        console.log('Client connected!!')
-        this.socket.emit('server_response', {data: 'Connected', 'count': 0})
-    }
+  disconnectRequest(data) {
+    this.socket.emit('server_response', { data: 'Disconnected!' })
+    this.socket.disconnect(true)
+  }
 
-    pingPong(data) {
-        this.socket.emit('server_pong')
-    }
+  testDisconnect(data) {
+    return this.socket.connected
+  }
 
-    disconnectRequest(data) {
-        this.socket.emit('server_response', {data: 'Disconnected!'})
-        this.socket.disconnect(true)
-    }
+  join(message) {
+    this.socket.join(message.room, (data) => {
+      let rooms = Object.keys(this.rooms)
+      // broadcast to everyone in the room
+      this.to(message.room).emit('server_response', {
+        data: 'a new user has joined the room',
+      })
+      this.emit('server_response', { data: 'In rooms: ' + rooms, rooms: rooms })
+    })
+  }
 
-    testDisconnect(data) {
-        return this.socket.connected
-    }
-
-    join(message) {
-        this.socket.join(message.room, data => {
-            let rooms = Object.keys(this.rooms);
-            // broadcast to everyone in the room
-            this.to(message.room).emit('server_response', {data: 'a new user has joined the room'});
-            this.emit('server_response', {data: 'In rooms: ' + rooms , rooms: rooms})
-        })
-    }
-
-    leave(message) {
-        this.socket.leave(message.room, data => {
-            let rooms = Object.keys(this.rooms);
-            // broadcast to everyone in the room
-            this.to(message.room).emit('server_response', {data: 'a user has left the room'});
-            this.emit('server_response', {data: 'In rooms: ' + rooms , rooms: rooms})
-        })
-    }
-
+  leave(message) {
+    this.socket.leave(message.room, (data) => {
+      let rooms = Object.keys(this.rooms)
+      // broadcast to everyone in the room
+      this.to(message.room).emit('server_response', {
+        data: 'a user has left the room',
+      })
+      this.emit('server_response', { data: 'In rooms: ' + rooms, rooms: rooms })
+    })
+  }
 }
 
 module.exports = Connectioncontroller

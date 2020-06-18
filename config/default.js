@@ -3,7 +3,7 @@ module.exports = {
   bakjs: {
     saveTweet: 'http://bak:3000/api/tweet/save',
     getAggregateUsers: 'http://bak:3000/api/aggregate/users',
-    getAggregateTopics: 'http://bak:3000/api/aggregate/topics'
+    getAggregateTopics: 'http://bak:3000/api/aggregate/topics',
   },
   namespace: '/tweetycs',
   twit: {
@@ -11,15 +11,15 @@ module.exports = {
     consumer_secret: '',
     access_token: '',
     access_token_secret: '',
-    tweet_mode: 'extended'
+    tweet_mode: 'extended',
   },
   flask: {
     mlapp_uri: 'http://flask:5000/',
-    dlapp_uri: 'http://flask:5001/'
+    dlapp_uri: 'http://flask:5001/',
   },
   IBM: {
     api_key: '',
-    url: ''
+    url: '',
   },
   keywords: [],
   channels: {
@@ -52,8 +52,8 @@ module.exports = {
         'Pancreatic Cancer',
         'Non-Hodgkin Lymphoma',
         'Multiple Myeloma',
-        'Leukemia'
-      ]
+        'Leukemia',
+      ],
     },
     diarrhea: {
       title:
@@ -68,16 +68,16 @@ module.exports = {
         'Tetanus',
         'Meningitis',
         'Measles',
-        'Encephalitis'
-      ]
+        'Encephalitis',
+      ],
     },
     hiv: {
       title: 'HIV/AIDS and Tuberculosis',
-      keywords: ['Tuberculosis', 'HIV/AIDS']
+      keywords: ['Tuberculosis', 'HIV/AIDS'],
     },
     unintentional: {
       title: 'Unintentional Injuries other Than Transport Injuries',
-      keywords: ['Heat Death', 'Poisonings', 'Fire Death', 'Falls', 'Drowning']
+      keywords: ['Heat Death', 'Poisonings', 'Fire Death', 'Falls', 'Drowning'],
     },
     respiratory: {
       title: 'Chronic Respiratory Diseases',
@@ -86,8 +86,8 @@ module.exports = {
         'Asthma',
         'Pneumoconiosis',
         'Diffuse Parenchymal Lung Disease',
-        'Pulmonary Sarcoidosis'
-      ]
+        'Pulmonary Sarcoidosis',
+      ],
     },
     diabetes: {
       title: 'Diabetes, Urogenital, Blood, And Endocrine Diseases',
@@ -96,17 +96,17 @@ module.exports = {
         'Male Infertility',
         'Kidney Disease',
         'Glomerulonephritis',
-        'Urinary disease'
-      ]
+        'Urinary disease',
+      ],
     },
     mental: {
       title: 'Mental and Behavioral Disorders',
-      keywords: ['Drug Overdose', 'Alcohol Use Disorders']
+      keywords: ['Drug Overdose', 'Alcohol Use Disorders'],
     },
     other_communicable: {
       title:
         'Other communicable, maternal, neonatal, and nutritional disorders',
-      keywords: ['Syphilis', 'STDs', 'Hepatitis']
+      keywords: ['Syphilis', 'STDs', 'Hepatitis'],
     },
     maternal: {
       title: 'Maternal Disorders',
@@ -114,8 +114,8 @@ module.exports = {
         'Maternal disorders',
         'Abortion',
         'Maternal Hemorrhage',
-        'Pregnancy Hypertensive'
-      ]
+        'Pregnancy Hypertensive',
+      ],
     },
     tropical: {
       title: 'Neglected Tropical Diseases and Malaria',
@@ -125,12 +125,12 @@ module.exports = {
         'Dengue',
         'Chikungunya',
         'Chagas',
-        'Malaria'
-      ]
+        'Malaria',
+      ],
     },
     non_communicable: {
       title: 'Other non-communicable Diseases',
-      keywords: ['Skin Disease', 'Skin Melanoma', 'Congenital Anomalies']
+      keywords: ['Skin Disease', 'Skin Melanoma', 'Congenital Anomalies'],
     },
     neurological: {
       title: 'Neurological disorders',
@@ -139,8 +139,8 @@ module.exports = {
         'Parkinsons Disease',
         'Migraine',
         'Epilepsy',
-        'Alzheimer'
-      ]
+        'Alzheimer',
+      ],
     },
     musculoskeletal: {
       title: 'Musculoskeletal Disorders',
@@ -149,16 +149,16 @@ module.exports = {
         'Osteoarthritis',
         'Neck Pain',
         'Low Back Pain',
-        'Gout'
-      ]
+        'Gout',
+      ],
     },
     neonatal: {
       title: 'Neonatal disorders',
       keywords: [
         'Sepsis',
         'Preterm Birth Complications',
-        'Neonatal Encephalopathy'
-      ]
+        'Neonatal Encephalopathy',
+      ],
     },
     cardiovascular: {
       title: 'Cardiovascular and circulatory diseases',
@@ -175,12 +175,12 @@ module.exports = {
         'Cardiomyopathy',
         'Atrial Flutter',
         'Atrial Fibrillation',
-        'Aortic Aneurysm'
-      ]
+        'Aortic Aneurysm',
+      ],
     },
     self_harm: {
       title: 'Self-harm and interpersonal violence',
-      keywords: ['Self-Harm', 'Interpersonal Violence']
+      keywords: ['Self-Harm', 'Interpersonal Violence'],
     },
     digestive: {
       title: 'Digestive Diseases (Except Cirrhosis)',
@@ -190,16 +190,16 @@ module.exports = {
         'Peptic Ulcer',
         'Paralytic Ileus',
         'Pancreatitis',
-        'Gall Bladder'
-      ]
+        'Gall Bladder',
+      ],
     },
     liver_cirrhosis: {
       title: 'Cirrhosis of the liver',
-      keywords: ['Liver Cirrhosis']
+      keywords: ['Liver Cirrhosis'],
     },
     nutritional: {
       title: 'Nutritional Deficiencies',
-      keywords: ['Protein-Energy Malnutrition', 'Iron-Deficiency Anemia']
+      keywords: ['Protein-Energy Malnutrition', 'Iron-Deficiency Anemia'],
     },
     nature: {
       title: 'Forces of nature, war, and legal intervention',
@@ -208,12 +208,12 @@ module.exports = {
         'Tsunami Death',
         'Tornado Death',
         'Hurricane Death',
-        'Earthquake Death'
-      ]
+        'Earthquake Death',
+      ],
     },
     transport: {
       title: 'Transport injuries',
-      keywords: ['Transport Injury', 'Road Injury']
-    }
-  }
+      keywords: ['Transport Injury', 'Road Injury'],
+    },
+  },
 }
